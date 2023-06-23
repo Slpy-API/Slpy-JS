@@ -1,0 +1,156 @@
+.map {
+ background:#f6f5f3
+}
+
+#mly {
+	width: 65%;
+	height: 100%;
+	float: left;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	box-shadow: 5px 0px 3px rgba(0, 0, 0, 0.08);
+	z-index: 3;
+	display: none;
+}
+
+#mly:after {
+	font-family: Arial, Helvetica, sans-serif;
+	content: "Finding Street Level Photos...";
+	position: absolute;
+	color: white;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	z-index: -1;
+}
+
+.ol-attribution,
+.mapboxgl-ctrl-attrib {
+	font-family: "Open Sans", "Arial", "Verdana", "sans-serif";
+	color: #666;
+}
+.ol-popup {
+ position:absolute;
+ background-color:#fff;
+ -webkit-filter:drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+ filter:drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+ padding:15px;
+ border-radius:10px;
+ border:1px solid #ccc;
+ bottom:42px;
+ left:-100px;
+ min-width:175px;
+ font-size:.9em
+}
+.ol-popup:after,
+.ol-popup:before {
+ top:100%;
+ border:solid transparent;
+ content:" ";
+ height:0;
+ width:0;
+ position:absolute;
+ pointer-events:none
+}
+.ol-popup:after {
+ border-top-color:#fff;
+ border-width:10px;
+ left:99px;
+ margin-left:-10px
+}
+.ol-popup:before {
+ border-top-color:#ccc;
+ border-width:11px;
+ left:100px;
+ margin-left:-11px
+}
+.ol-popup-closer {
+ text-decoration:none;
+ position:absolute;
+ top:2px;
+ right:8px
+}
+.ol-popup-closer:after {
+ content:"x"
+}
+#mapOverlayNotice {
+	font-family: "Open Sans", "Arial", "Verdana", "sans-serif";
+	position:relative;
+	z-index:10;
+	margin-top:20px;
+	width:100%;
+	height:100%;
+	font-size:22px;
+	display:block;
+	display:flex;
+	text-align:center;
+	justify-content: center;
+	 align-items: center;
+}
+.faMarker {
+ color:#a11c25;
+ position:absolute;
+ top:-1em;
+ left:-.15em;
+ font-size:3em;
+ font-weight:900;
+ -webkit-text-stroke-width:2.5px #fff;
+ text-shadow:-2.5px 0 #fff,0 2.5px #fff,2.5px 0 #fff,0 -2.5px #fff,4px 0 1px rgba(0,0,0,.15)
+}
+
+.apiautodropdown-item {
+	padding: 6px 10px;
+}
+
+.apiautodropdown-item:focus,
+.apiautodropdown-item:hover {
+	background-color: #f9f9f9;
+}
+
+.apiautodropdown-content button {
+	background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+	display: block;
+	width: 100%;
+	text-align: justify;
+	position: relative;
+	white-space: break-spaces;
+}
+
+.apiautodropdown-text {
+	padding: 4px 0px 4px 25px;
+}
+
+.apiautodropdown-icon {
+	width: 18px;
+	height: 13px;
+	position: absolute;
+	top: 12px;
+	fill: #cccccc;
+}
+
+.apiautodropdown-muted {
+	color: #6c757d;
+}
+
+.apiautodropdown-content {
+	display: none;
+	background-color: #ffffff;
+	font-size: 13.5px;
+	min-width: 250px;
+	border-radius: 3px;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	padding: 5px 0px 10px 0px;
+	z-index: 10;
+	line-height: 20px;
+	overflow: auto;
+	white-space: break-spaces;
+}
+
+.apiautodropdown-content-show {
+	display: block;
+}
