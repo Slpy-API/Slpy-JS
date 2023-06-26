@@ -147,4 +147,4 @@ Slpy JS is compatible with all modern web browsers. For Internet Explorer, parti
 
 ## Contributing
 
-We welcome contributions from the community. If you're interested in contributing, please see [our contributing guidelines](https://github.com/Slpy-API/Slpy-JS/CONTRIBUTING.md).
+We welcome contributions from the community. If you're interested in contributing, please see [our contributing guidelines](CONTRIBUTING.md).
