@@ -2,11 +2,11 @@
 
 # Slpy JS
 
-[![Version](https://img.shields.io/npm/v/slpy?style=flat)](https://www.npmjs.com/package/slpy) [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
+Slpy JS enables easy integration and setup of interactive slippy maps, geocoding search, autocomplete and autofill, satellite to street level imagery, and other complex location features.  Powered by the [Slpy API](https://www.slpy.com), and designed for your JavaScript compatible applications and websites.
 
-Slpy JS enables rapid development of common features for interactive slippy maps, search, and other location services with the [Slpy API](https://www.slpy.com).  
-Add complex geocoding search, autocomplete and autofill, or display beautiful maps in your JavaScript compatible applications and websites.  
 Visit the [Slpy Documentation](https://www.slpy.com/docs) site for more information on usage and features.
+
+[![Version](https://img.shields.io/npm/v/slpy?style=flat)](https://www.npmjs.com/package/slpy) [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
 
 ## Features
 
