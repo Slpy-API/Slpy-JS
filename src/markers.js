@@ -7,6 +7,7 @@ import { distanceInKM } from './utils.js';
 export let hasPopupInfo = false;
 export let markerVectorSource;
 export let markerVectorLayer;
+export let markerOverlay;
 
 export function addMarkers(markers, map, style) {
     var style = style === undefined ? "default" : style;
@@ -44,7 +45,7 @@ export function addMarkers(markers, map, style) {
             source: markerVectorSource,
             className: "ol-markers"
         });
-        map.once("postrender", function (event) {
+        map.once("rendercomplete", function (event) {
             map.addLayer(markerVectorLayer);
         });
         if (hasPopupInfo) {

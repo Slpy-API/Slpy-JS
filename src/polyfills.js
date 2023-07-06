@@ -117,6 +117,38 @@ if (typeof window.Worker === 'undefined' || isIE10()) {
     };
 }
 
+if (typeof window.btoa === 'undefined') {
+    window.btoa = function (input) {
+        var str = String(input);
+        var output = "";
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        var i = 0;
+
+        var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+        while (i < str.length) {
+            chr1 = str.charCodeAt(i++);
+            chr2 = i < str.length ? str.charCodeAt(i++) : NaN;
+            chr3 = i < str.length ? str.charCodeAt(i++) : NaN;
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+
+            output += keyStr.charAt(enc1) + keyStr.charAt(enc2) +
+                keyStr.charAt(enc3) + keyStr.charAt(enc4);
+        }
+
+        return output;
+    };
+}
+
 if (typeof window.Buffer === 'undefined') {
     window.Buffer = {
         from: function (str, encoding) {
@@ -172,13 +204,13 @@ if (typeof window.Buffer === 'undefined') {
 
 // IE11 does not polyfill with pepjs, so we create polyfill from MouseEvent to get it working
 if (window.PointerEvent && typeof window.PointerEvent !== 'function') {
-    window.PointerEvent = function(type, pointerEventInit) {
+    window.PointerEvent = function (type, pointerEventInit) {
         pointerEventInit = pointerEventInit || {};
         var event = document.createEvent('MouseEvent');
-        event.initMouseEvent(type, 
+        event.initMouseEvent(type,
             (pointerEventInit.bubbles === undefined) ? true : pointerEventInit.bubbles,
             (pointerEventInit.cancelable === undefined) ? true : pointerEventInit.cancelable,
-            window, 
+            window,
             0,
             pointerEventInit.screenX || 0,
             pointerEventInit.screenY || 0,
@@ -191,7 +223,7 @@ if (window.PointerEvent && typeof window.PointerEvent !== 'function') {
             pointerEventInit.button || 0,
             pointerEventInit.relatedTarget || null
         );
-        
+
         // Set width and height
         event.width = pointerEventInit.width || 0;
         event.height = pointerEventInit.height || 0;
