@@ -1,7 +1,7 @@
 //Copyright 2023, Slpy, all rights reserved.
 //Check out https://github.com/Spy-API/Slpy-JS and https://www.slpy.com/legal for licensing and terms
 
-import { loadScript } from "./utils.js";
+import { loadScript, isWebGL1Supported } from "./utils.js";
 import { waitForOl } from "./OLfallback.js";
 import { settings, mapLibraries, mapState } from "./globals.js";
 import { loadMaplibre } from './loadMaplibre.js';
@@ -30,7 +30,26 @@ export function maplibreMap(options) {
             if (mglscript !== undefined) {
                 mglscript.parentNode.removeChild(mglscript);
             }
-            loadScript(process.env.API_URL + ".slpy.com/lib/ol/v7.4/ol.legacy.min.js");
+            if (options["mapType"] != "raster") {
+                //lets check if we can run vector tiles by testing for WebGL1. OL does not need, but will use this arbitrary cutoff for now.
+                //cross site xml request is an example of currently breaking feature in ie9
+                if (!isWebGL1Supported()) {
+                    if (settings.rasterFallback) {
+                        options["mapType"] = "raster";
+                    } else {
+                        var mapDivEl = options["container"];
+                        if (typeof mapDivEl === "string") {
+                            mapDivEl = document.getElementById(options["container"]);
+                        }
+                        mapDivEl.insertAdjacentHTML(
+                            "afterbegin",
+                            '<p id="mapOverlayNotice">Your Web Browser is not compatible.  Please upgrade.</p>'
+                        );
+                        return "";
+                    }
+                }
+            }
+            loadScript(process.env.API_URL + ".slpy.com/lib/ol/v7.4/ol.legacy.js");
             waitForOl(options);
             mapState.openlayersLoading = true;
             return {};

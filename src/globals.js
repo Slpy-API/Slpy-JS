@@ -11,7 +11,7 @@ export let mapState = {
 
 export let settings = {
     openlayersFallback: false,
-    ieRasterFallback: false,
+    rasterFallback: false,
     mapFilter: [],
     apiKey: ""
 };

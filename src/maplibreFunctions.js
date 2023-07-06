@@ -54,7 +54,6 @@ export function maplibreCheck(targetDivId, openlayersFallback) {
                     '<p id="mapOverlayNotice">Your Web Browser is not compatible.  Please upgrade.</p>'
                 );
             }
-            mapDivEl.innerHTML = "";
         }
         return false;
     }

@@ -4,10 +4,19 @@
 import { mapState } from './globals.js';
 import { openlayersMap } from './openlayersFunctions.js';
 import { addAerialImagery } from './aerialImagery.js';
+import { loadScript } from './utils.js';
 
 export function waitForOl(options) {
     if (typeof window.ol === "undefined") {
         setTimeout(waitForOl, 250, options);
+    } else if (typeof window.olms === "undefined" && options["mapType"] != "raster") {
+        if (!options["loadingOLMS"]) {
+            options["loadingOLMS"] = true;
+            loadScript(process.env.API_URL + ".slpy.com/lib/olms/latest/olms.js");
+            setTimeout(waitForOl, 250, options);
+        } else {
+            setTimeout(waitForOl, 250, options);
+        }
     } else {
         var olcss = document.createElement("link");
         var facss = document.createElement("link");
@@ -17,7 +26,6 @@ export function waitForOl(options) {
         facss.rel = "stylesheet";
         document.head.appendChild(olcss);
         document.head.appendChild(facss);
-        options["mapType"] = "raster";
         var map = openlayersMap(options);
         if (typeof mapState.openlayersReady !== "undefined") {
             mapState.openlayersReady(map);

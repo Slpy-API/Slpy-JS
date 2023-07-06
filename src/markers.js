@@ -291,7 +291,8 @@ export function createMarker(lonLat, name, id, style) {
                 anchor: [0.5, 36],
                 anchorXUnits: "fraction",
                 anchorYUnits: "pixels",
-                src: "data:image/svg+xml;base64," + icon
+                src: "data:image/svg+xml;base64," + icon,
+                imgSize: ((window.document.documentMode) ? [27, 36] : null)
             })
         });
         markerFeature.setStyle(markerStyle);
@@ -304,7 +305,8 @@ export function createMarker(lonLat, name, id, style) {
                 anchor: [0.5, 36],
                 anchorXUnits: "fraction",
                 anchorYUnits: "pixels",
-                src: "data:image/svg+xml;base64," + iconSolid
+                src: "data:image/svg+xml;base64," + iconSolid,
+                imgSize: ((window.document.documentMode) ? [27, 36] : null)
             })
         });
         var markerTextStyle = new mapLibraries.ol.style.Style({
