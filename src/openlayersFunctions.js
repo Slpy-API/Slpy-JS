@@ -1,7 +1,7 @@
 //Copyright 2023, Slpy, all rights reserved.
 //Check out https://github.com/Spy-API/Slpy-JS and https://www.slpy.com/legal for licensing and terms
 
-import { isWebGL2Supported } from './utils.js';
+import { isVectorSupported } from './utils.js';
 import { settings, openlayersParts, mapState, mapLibraries } from './globals.js';
 import { loadOpenLayers } from './loadOL.js'
 import { loadOLMS } from './loadOLMS.js';
@@ -88,7 +88,6 @@ export function openlayersMap(options) {
         var map = new mapLibraries.ol.Map({
             controls: openlayersParts.controls,
             interactions: openlayersParts.interactions,
-            layers: [getLayer(mapType, settings.apiKey, options)],
             target: options["target"],
             view: openlayersParts.view
         });
@@ -115,20 +114,20 @@ export function getLayer(type, apiKey, options) {
     var myNav = navigator.userAgent.toLowerCase();
 
     //check for IE Raster fallback
-    var showRasterIE = false;
-    if (settings.ieRasterFallback && type != "raster") {
-        if (!isWebGL2Supported()) {
-            showRasterIE = true;
+    var showRaster = false;
+    if (settings.rasterFallback && type != "raster") {
+        if (!isVectorSupported()) {
+            showRaster = true;
             mapState.oldIE = true;
         }
     } else if (type == "raster") {
-        if (!isWebGL2Supported()) {
+        if (!isVectorSupported()) {
             mapState.oldIE = true;
         }
     }
     var requiredAttribution =
         '©&nbsp;<a href="https://www.slpy.com">Slpy</a> ©&nbsp;<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>&nbsp;contributors';
-    if (showRasterIE || type == "raster") {
+    if (showRaster || type == "raster") {
         //raster layer
         var tilePixelRatioS = 2;
         if (mapState.oldIE) {
@@ -156,7 +155,6 @@ export function getLayer(type, apiKey, options) {
             source: new mapLibraries.ol.source.VectorTile({
                 maxZoom: 15,
                 renderMode: "hybrid",
-                attributions: requiredAttribution,
                 format: new mapLibraries.ol.format.MVT(),
                 url:
                     "https://api.slpy.com/v1/vector/" +

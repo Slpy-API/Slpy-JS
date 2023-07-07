@@ -28,6 +28,42 @@ export function isWebGL1Supported() {
     }
 }
 
+export function isVectorSupported() {
+    function isCanvasSupported() {
+        var elem = document.createElement('canvas');
+        return !!(elem.getContext && elem.getContext('2d'));
+    }
+
+    // Check if browser can create sufficient number of Canvas contexts (limited in some browsers)
+    function checkCanvasContextLimit() {
+        var canvasLimit = 16; // Arbitrary reasonable number
+        var canvasArray = [];
+        for (var i = 0; i < canvasLimit; i++) {
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            if (!context) {
+                console.log("Browser has limited Canvas contexts.");
+                return false; // Browser hit limit
+            }
+            canvasArray.push(canvas); // Retain reference to prevent GC cleaning up canvases
+        }
+        return true; // All canvas contexts could be created
+    }
+
+    // Check if fetch and Promise APIs are supported
+    function isFetchAndPromiseSupported() {
+        return 'fetch' in window && 'Promise' in window;
+    }
+
+    // Check if CORS is supported
+    function isCORSSupported() {
+        return 'withCredentials' in new XMLHttpRequest();
+    }
+
+    // Ensure necessary features are available
+    return isCanvasSupported() && checkCanvasContextLimit() && isFetchAndPromiseSupported() && isCORSSupported();
+}
+
 export function loadScript(url) {
     var script = document.createElement("script");
     script.type = "text/javascript";
