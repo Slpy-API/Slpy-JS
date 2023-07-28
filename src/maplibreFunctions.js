@@ -81,6 +81,10 @@ export function loadMaplibreMap(options) {
             mapState.mapStyleUrl += "&style=3d";
         }
     }
+    //allow overwrite of antialias
+    if (typeof options["antialias"] !== "undefined") {
+        antialias = options["antialias"];
+    }
     if (typeof options["mapTransform"] !== "undefined" && options["mapTransform"].length > 0) {
         mapState.mapStyleUrl += "&transform=" + options["mapTransform"].toLowerCase();
     }

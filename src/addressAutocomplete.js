@@ -100,8 +100,13 @@ export function addressAutocomplete(targetInput, autoOptions) {
                         selectedItem["country"];
                       break;
                     case "country-code":
-                      formParts[autoSectionKey]["country-code"].value =
+                      if (selectedItem["country-code"]) {
+                        formParts[autoSectionKey]["country-code"].value =
                         selectedItem["country-code"];
+                      } else {
+                        formParts[autoSectionKey]["country-code"].value =
+                        selectedItem["country_code"];
+                      }
                       break;
                     default:
                       break;

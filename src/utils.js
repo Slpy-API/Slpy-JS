@@ -179,105 +179,102 @@ export function flyTo(obj, map) {
         var view = map.getView();
         var startPoint = mapLibraries.ol.proj.toLonLat(view.getCenter());
         var destination = mapLibraries.ol.proj.fromLonLat([obj.lon, obj.lat]);
-        var zoom = view.getZoom();
+        var currentZoom = view.getZoom();
         var quality = obj.quality;
         var done = function done() { };
         var parts = 2;
         var called = false;
     } else {
-        var quality = obj.quality;
         var getcenter = map.getCenter();
         var startPoint = Object.values(getcenter);
         var destination = [obj.lon, obj.lat];
-        var zoom = map.getZoom();
+        var currentZoom = map.getZoom();
     }
+    var zoom = currentZoom;
+    var quality = obj.quality;
     var distance = distanceInKM(obj.lat, obj.lon, startPoint[1], startPoint[0]);
-    var duration = 5000;
+    var duration = 1000;
     var topZoom = zoom - 1;
     switch (true) {
         case distance < 1:
             if (zoom > 16) {
                 topZoom = 16;
             }
-            duration = 1000;
             break;
         case distance < 5:
             if (zoom > 15) {
                 topZoom = 15;
             }
-            duration = 1000;
             break;
         case distance < 10:
             if (zoom > 14) {
                 topZoom = 14;
             }
-            duration = 1000;
             break;
         case distance < 40:
             if (zoom > 13) {
                 topZoom = 13;
             }
-            duration = 1000;
             break;
         case distance < 50:
             if (zoom > 12) {
                 topZoom = 12;
             }
-            duration = 2000;
+            duration *= 2;
             break;
         case distance < 150:
             if (zoom > 11) {
                 topZoom = 11;
             }
-            duration = 2000;
+            duration *= 2;
             break;
         case distance < 250:
             if (zoom > 10) {
                 topZoom = 10;
             }
-            duration = 2000;
+            duration *= 2;
             break;
         case distance < 400:
             if (zoom > 9) {
                 topZoom = 9;
             }
-            duration = 3000;
+            duration *= 3;
             break;
         case distance < 700:
             if (zoom > 8) {
                 topZoom = 8;
             }
-            duration = 3000;
+            duration *= 3;
             break;
         case distance < 1000:
             if (zoom > 7) {
                 topZoom = 7;
             }
-            duration = 3000;
+            duration *= 3;
             break;
         case distance < 2000:
             if (zoom > 6) {
                 topZoom = 6;
             }
-            duration = 4000;
+            duration *= 4;
             break;
         case distance < 3500:
             if (zoom > 5) {
                 topZoom = 5;
             }
-            duration = 4000;
+            duration *= 4;
             break;
         case distance < 5000:
             if (zoom > 4) {
                 topZoom = 4;
             }
-            duration = 4000;
+            duration *= 4;
             break;
         case distance >= 5000:
             if (zoom > 3) {
                 topZoom = 3;
             }
-            duration = 4000;
+            duration *= 4;
             break;
         default:
             break;
@@ -305,14 +302,12 @@ export function flyTo(obj, map) {
             zoom = 13;
             break;
         case 7:
-            zoom = 14;
+            zoom = 16;
             break;
         case 8:
             zoom = 16.5;
             break;
         case 9:
-            zoom = 17;
-            break;
         case 10:
             zoom = 17;
             break;
@@ -321,6 +316,9 @@ export function flyTo(obj, map) {
     }
     if (topZoom >= zoom) {
         topZoom = zoom - 1;
+    }
+    if (currentZoom >= zoom) {
+        topZoom = zoom;
     }
     if (typeof mapLibraries.ol !== "undefined") {
         var callback = function callback(complete) {
@@ -352,12 +350,22 @@ export function flyTo(obj, map) {
             callback
         );
     } else {
-        map.flyTo({
-            center: destination,
-            minZoom: topZoom,
-            zoom: zoom,
-            maxDuration: duration * 2.5
-        });
+        if (obj.boundingbox) {
+            var bbox = obj.boundingbox;
+            map.fitBounds([[bbox[2], bbox[0]],[bbox[3], bbox[1]]], {maxZoom:18,  padding: {top: 15, bottom:15, left: 15, right: 15}});
+        } else {
+            var flyOpt = {
+                center: destination,
+                zoom: zoom,
+                maxDuration: duration * 2.5
+            }
+            if (zoom != topZoom) {
+               // flyOpt.minZoom = topZoom
+            }
+            map.flyTo(
+                flyOpt
+            );
+        }
     }
 }
 
