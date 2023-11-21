@@ -13,7 +13,8 @@ export let settings = {
     openlayersFallback: false,
     rasterFallback: false,
     mapFilter: [],
-    apiKey: ""
+    apiKey: "",
+    language: "en"
 };
 
 export let openlayersParts = {

@@ -68,7 +68,9 @@ export function openlayersMap(options) {
         // Check if the "defaults" function exists for map interactions.
         options["view"] = getView(options["center"], options["zoom"]);
     }
-    if (typeof options["mapLanguage"] !== "undefined" && options["mapLanguage"].toLowerCase() != "en") {
+    if (typeof options["language"] !== "undefined" && options["language"].toLowerCase() != "en") {
+        options["mapLanguage"] = options["language"].toLowerCase();
+    } else if (typeof options["mapLanguage"] !== "undefined" && options["mapLanguage"].toLowerCase() != "en") {
         options["mapLanguage"] = options["mapLanguage"].toLowerCase();
     } else {
         options["mapLanguage"] = "en";
@@ -142,7 +144,7 @@ export function getLayer(type, apiKey, options) {
                 tilePixelRatio: tilePixelRatioS,
                 attributions: requiredAttribution,
                 url:
-                    "https://api.slpy.com/v1/raster/" +
+                    process.env.API_URL + ".slpy.com/v1/raster/" +
                     options["mapLanguage"] +
                     "/{z}/{x}/{y}.png?key=" +
                     apiKey
@@ -157,7 +159,7 @@ export function getLayer(type, apiKey, options) {
                 renderMode: "hybrid",
                 format: new mapLibraries.ol.format.MVT(),
                 url:
-                    "https://api.slpy.com/v1/vector/" +
+                    process.env.API_URL + ".slpy.com/v1/vector/" +
                     options["mapLanguage"] +
                     "/{z}/{x}/{y}.pbf?key=" +
                     apiKey

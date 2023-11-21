@@ -8,6 +8,7 @@ import 'core-js/es/array/find.js';
 import 'core-js/es/array/from.js'
 import 'core-js/es/typed-array/uint8-array.js';
 import 'core-js/es/object/define-property.js';
+import 'core-js/features/dom-collections';
 import 'core-js/web/url'
 import 'pepjs'
 import 'whatwg-fetch'

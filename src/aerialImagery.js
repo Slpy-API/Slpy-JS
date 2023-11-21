@@ -137,7 +137,7 @@ export function addAerialImagery(map) {
                 format: new mapLibraries.ol.format.MVT(),
                 maxZoom: 16,
                 url:
-                    "https://api.slpy.com/v1/app/aerial-imagery/{z}/{x}/{y}.png?key=" +
+                    process.env.API_URL + ".slpy.com/v1/app/aerial-imagery/{z}/{x}/{y}.png?key=" +
                     settings.apiKey
             }),
             minZoom: 0,
@@ -150,7 +150,7 @@ export function addAerialImagery(map) {
                 format: new mapLibraries.ol.format.MVT(),
                 maxZoom: 16,
                 url:
-                    "https://api.slpy.com/v1/app/aerial-topo/{z}/{x}/{y}.png?key=" +
+                    process.env.API_URL + ".slpy.com/v1/app/aerial-topo/{z}/{x}/{y}.png?key=" +
                     settings.apiKey
             }),
             minZoom: 0,
@@ -437,7 +437,7 @@ export function addAerialImagery(map) {
             type: "raster",
             scheme: "xyz",
             tiles: [
-                "https://api.slpy.com/v1/app/aerial-imagery/{z}/{x}/{y}.png?key=" +
+                process.env.API_URL + ".slpy.com/v1/app/aerial-imagery/{z}/{x}/{y}.png?key=" +
                 settings.apiKey
             ],
             minzoom: 0,

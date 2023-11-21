@@ -1,6 +1,8 @@
 //Copyright 2023, Slpy, all rights reserved.
 //Check out https://github.com/Spy-API/Slpy-JS and https://www.slpy.com/legal for licensing and terms
 
+import { settings } from "./globals.js";
+
 export function addAutocomplete(targetInput, autoOptions, onInputChange) {
     if (typeof targetInput === "string") {
         var inputField = document.getElementById(targetInput);
@@ -41,6 +43,9 @@ export function addAutocomplete(targetInput, autoOptions, onInputChange) {
     var autoFilter = "";
     if (autoOptions["filter"] !== undefined) {
         autoFilter = "&filter=" + autoOptions["filter"].toLowerCase();
+    }
+    if (autoOptions["language"] !== undefined) {
+        settings.language = autoOptions["language"].toLowerCase();
     }
     var resultsLimit = 10;
     if (autoOptions["limit"] !== undefined) {
@@ -255,6 +260,7 @@ export function addAutocomplete(targetInput, autoOptions, onInputChange) {
         }
         var query = inputField.value.toLowerCase();
         if (query.length > 1) {
+            query = encodeURIComponent(query);
             if (query !== lastSearch + " " && query !== lastSearch) {
                 var processDropdown = function processDropdown(obj) {
                     if (Object.keys(obj).length > 0) {
@@ -369,21 +375,25 @@ export function addAutocomplete(targetInput, autoOptions, onInputChange) {
                 lastSelect = 0;
                 if (autoCompleteType == "all") {
                     makeRequest(
-                        "https://api.slpy.com/v1/search?autocomplete=admin" +
+                        process.env.API_URL + ".slpy.com/v1/search?autocomplete=admin" +
                         autoFilter +
                         "&country=" +
                         autoCountry +
                         "&key=" +
                         autoKey +
+                        "&language=" +
+                        settings.language +
                         "&search=" +
                         query,
                         function (obj) {
                             if (Object.keys(obj).length < resultsLimit) {
                                 makeRequest(
-                                    "https://api.slpy.com/v1/search?autocomplete=address&country=" +
+                                    process.env.API_URL + ".slpy.com/v1/search?autocomplete=address&country=" +
                                     autoCountry +
                                     "&key=" +
                                     autoKey +
+                                    "&language=" +
+                                    settings.language +
                                     "&search=" +
                                     query,
                                     function (response) {
@@ -435,20 +445,24 @@ export function addAutocomplete(targetInput, autoOptions, onInputChange) {
                     var url;
                     if (autoCompleteType == "admin") {
                         url =
-                            "https://api.slpy.com/v1/search?autocomplete=admin" +
+                            process.env.API_URL + ".slpy.com/v1/search?autocomplete=admin" +
                             autoFilter +
                             "&country=" +
                             autoCountry +
                             "&key=" +
                             autoKey +
+                            "&language=" +
+                            settings.language +
                             "&search=" +
                             query;
                     } else {
                         url =
-                            "https://api.slpy.com/v1/search?autocomplete=address&country=" +
+                            process.env.API_URL + ".slpy.com/v1/search?autocomplete=address&country=" +
                             autoCountry +
                             "&key=" +
                             autoKey +
+                            "&language=" +
+                            settings.language +
                             "&search=" +
                             query;
                     }

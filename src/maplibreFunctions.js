@@ -22,7 +22,9 @@ export function processOptions(options) {
     } else {
         options["mapType"] = "vector";
     }
-    if (typeof options["mapLanguage"] !== "undefined" && options["mapLanguage"].toLowerCase() != "en") {
+    if (typeof options["language"] !== "undefined" && options["language"].toLowerCase() != "en") {
+        options["mapLanguage"] = options["language"].toLowerCase();
+    } else if (typeof options["mapLanguage"] !== "undefined" && options["mapLanguage"].toLowerCase() != "en") {
         options["mapLanguage"] = options["mapLanguage"].toLowerCase();
     } else {
         options["mapLanguage"] = "en";
@@ -85,6 +87,11 @@ export function loadMaplibreMap(options) {
     if (typeof options["antialias"] !== "undefined") {
         antialias = options["antialias"];
     }
+    //allow overwrite of maxZoom
+    var maxzoom = 21;
+    if (typeof options["maxZoom"] !== "undefined") {
+        maxzoom = options["maxZoom"];
+    }
     if (typeof options["mapTransform"] !== "undefined" && options["mapTransform"].length > 0) {
         mapState.mapStyleUrl += "&transform=" + options["mapTransform"].toLowerCase();
     }
@@ -106,6 +113,7 @@ export function loadMaplibreMap(options) {
     var defaultGlOptions = {
         container: options['container'],
         style: mapState.mapStyleUrl,
+        maxZoom: maxzoom,
         // style URL
         center: options["center"],
         zoom: options["zoom"],
