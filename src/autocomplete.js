@@ -538,6 +538,7 @@ export function addAutocomplete(targetInput, autoOptions, onInputChange) {
         return function (event) {
             var dropdownItem = getClosest(event.target, ".apiautodropdown-item");
             if (dropdownItem) {
+                event.preventDefault();
                 if (dragging) {
                     return;
                 }
