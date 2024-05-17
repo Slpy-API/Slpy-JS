@@ -1,6 +1,6 @@
 {
   "name": "slpy",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Slpy Maps and Search API",
   "main": "dist/slpy.js",
   "module": "dist/index.js",
@@ -8,7 +8,7 @@
   "style": "dist/css/slpy-style.css",
   "sideEffects": false,
   "type": "module",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-webpack": "webpack --mode=production",
