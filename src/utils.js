@@ -89,7 +89,7 @@ export function setInteractionOnFocus(div, mapob) {
     mapDivEl.tabIndex = 1;
     mapDivEl.insertAdjacentHTML(
         "afterbegin",
-        '<p id="mapOverlayNotice" style="position:absolute;z-index:10;margin-top:20px;width:100%;height:100%;font-weight:bold;font-size:22px;color:black;display:none;text-align:center;justify-content: center; align-items: center;"><span style="background:white;padding: 10px;border-radius: 10px;box-shadow: 2px 2px 4px #555;">Click the map to pan and zoom.</span></p>'
+        '<p id="mapOverlayNotice" style="position:absolute;z-index:10;margin-top:20px;width:100%;height:100%;font-weight:bold;font-size:22px;color:rgb(25, 25, 25);display:none;text-align:center;justify-content: center; align-items: center;"><span style="background:white;padding: 10px;border-radius: 5px;box-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Click the map to pan and zoom.</span></p>'
     );
     var mapDivNotice = document.getElementById("mapOverlayNotice");
     if (typeof mapLibraries.ol !== "undefined") {
