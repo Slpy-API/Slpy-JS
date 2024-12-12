@@ -92,31 +92,15 @@ export function addAerialImagery(map) {
         ],
         // mn
         [
-            [-160.532227, 18.773407],
-            [-154.423828, 22.493078]
-        ],
-        // ha
-        [
             [-67.985919, 17.265936],
             [-64.52648, 18.884333]
         ],
         // pr
-        [
-            [-168.354492, 52.855864],
-            [-140.800781, 71.441149]
-        ],
-        // ak
-        [
-            [-142.03125, 54.626423],
-            [-129.726563, 60.533801]
-        ]
-    ]; // ak_s
+    ];
     if (typeof mapLibraries.ol !== "undefined") {
         var isInAerialArea = function isInAerialArea() {
             var curmapaiz = map.getView().getZoom();
-            if (curmapaiz < 8.5) {
-                return true;
-            } else if (curmapaiz > 19) {
+            if (curmapaiz > 20) {
                 return false;
             }
             var inSatArea = false;
@@ -129,19 +113,22 @@ export function addAerialImagery(map) {
                 ]);
                 inSatArea = mapLibraries.ol.extent.containsCoordinate(BBX, curmapcentr);
                 bbarea++;
-            } while (!inSatArea && bbarea < 20);
-            return inSatArea;
+            } while (!inSatArea && bbarea < 18);
+            if (!inSatArea && curmapaiz > 15.5) {
+                return false;
+            }
+            return true;
         };
         var satelliteSource = new mapLibraries.ol.layer.Tile({
             source: new mapLibraries.ol.source.XYZ({
                 format: new mapLibraries.ol.format.MVT(),
-                maxZoom: 16,
+                maxZoom: 17,
                 url:
                     process.env.API_URL + ".slpy.com/v1/app/aerial-imagery/{z}/{x}/{y}.png?key=" +
                     settings.apiKey
             }),
             minZoom: 0,
-            maxZoom: 19,
+            maxZoom: 20,
             zindex: 0
         });
         //use below for ie9 since vector overlay will be missing
@@ -219,7 +206,7 @@ export function addAerialImagery(map) {
                     document.getElementById("AerialImageryIcon").style.backgroundImage =
                         "url('https://www.slpy.com/img/VectorImagery.png')";
                 } else {
-                    if (map.getView().getZoom() > 18) {
+                    if (map.getView().getZoom() > 19) {
                         alert("No Aerial Imagery at this level.  Try zooming out.");
                     } else {
                         alert("No Aerial Imagery available in this region.");
@@ -249,9 +236,7 @@ export function addAerialImagery(map) {
     } else if (mapState.maplibreLoaded) {
         var isInAerialAreaMb = function isInAerialAreaMb() {
             var curmapaiz = map.getZoom();
-            if (curmapaiz < 7.5) {
-                return true;
-            } else if (curmapaiz > 18) {
+            if (curmapaiz > 19) {
                 return false;
             }
             var inSatArea = false;
@@ -261,8 +246,11 @@ export function addAerialImagery(map) {
                 var BBX = new mapLibraries.maplibregl.LngLatBounds(AIbbox[bbarea]);
                 inSatArea = BBX.contains(curmapcentr);
                 bbarea++;
-            } while (!inSatArea && bbarea < 20);
-            return inSatArea;
+            } while (!inSatArea && bbarea < 18);
+            if (!inSatArea && curmapaiz > 14.5) {
+                return false;
+            }
+            return true;
         };
         var originalStyle = "";
         var AerialImageryControl = function AerialImageryControl() { };
@@ -345,18 +333,21 @@ export function addAerialImagery(map) {
                         type: "raster",
                         source: "satellite",
                         minzoom: 0,
-                        maxzoom: 18
+                        maxzoom: 19
                     },
                     "necountries-4"
                 );
                 document.getElementById("AerialImageryIcon").style.backgroundImage =
                     "url('https://www.slpy.com/img/VectorImagery.png')";
                 map.setLayoutProperty("roads-casing", "visibility", "none");
-                map.setLayoutProperty("roads-motorway-casing", "visibility", "none");
+                map.setLayoutProperty("roads-motorway-casing-low-zoom", "visibility", "none");
                 map.setLayoutProperty("highway-area-fill", "visibility", "none");
                 map.setLayoutProperty("highway-motorway-shadow", "visibility", "none");
                 map.setLayoutProperty("highway-trunk-shadow", "visibility", "none");
-                map.setLayoutProperty("roads-low-zoom-shadow", "visibility", "none");
+                map.setLayoutProperty("roads-low-zoom-primary-shadow", "visibility", "none");
+                map.setLayoutProperty("roads-low-zoom-secondary-shadow", "visibility", "none");
+                map.setLayoutProperty("roads-low-zoom-motorway-shadow", "visibility", "none");
+                map.setLayoutProperty("roads-low-zoom-trunk-shadow", "visibility", "none");
                 map.setPaintProperty("highway-motorway", "line-color", "#edaa82");
                 map.setPaintProperty("roads", "line-opacity", 0.5);
                 map.setPaintProperty("roads-low-zoom-secondary", "line-opacity", 0.5);
@@ -426,7 +417,7 @@ export function addAerialImagery(map) {
                 map.setPaintProperty("admin-high-zoom-4", "line-color", "#222");
                 mapState.aerialImageryOn = true;
             } else {
-                if (map.getZoom() > 18) {
+                if (map.getZoom() > 19) {
                     alert("No Aerial Imagery at this level.  Try zooming out.");
                 } else {
                     alert("No Aerial Imagery available in this region.");
@@ -441,7 +432,7 @@ export function addAerialImagery(map) {
                 settings.apiKey
             ],
             minzoom: 0,
-            maxzoom: 16,
+            maxzoom: 17,
             tileSize: 256
         };
         AerialImageryControl.prototype.onAdd = function (map) {

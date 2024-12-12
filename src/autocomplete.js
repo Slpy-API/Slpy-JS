@@ -237,6 +237,10 @@ export function addAutocomplete(targetInput, autoOptions, onInputChange) {
                 if (xhr.status === 200) {
                     var obj = JSON.parse(xhr.responseText);
                     callback(obj);
+                } else {
+                    console.log('Slpy Api: There was a problem with the request. Make sure the API Key is set correctly and the origin/referer request header matches your whitelisted domains.');
+                    var obj = JSON.parse(xhr.responseText);
+                    callback(obj);
                 }
                 currentRequest = null;
             }
