@@ -49,7 +49,7 @@ export function maplibreMap(options) {
                     }
                 }
             }
-            loadScript(process.env.API_URL + ".slpy.com/lib/ol/v7.4/ol.legacy.min.js");
+            loadScript(process.env.API_URL + ".slpy.com/lib/ol/latest/ol.legacy.min.js");
             waitForOl(options);
             mapState.openlayersLoading = true;
             return {};

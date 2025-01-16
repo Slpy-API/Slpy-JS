@@ -29,6 +29,13 @@ export function isWebGL1Supported() {
 }
 
 export function isVectorSupported() {
+
+    //fail on ie 10 and below.  ie 10 does support canvas, but causes other failures.
+    var myNav = navigator.userAgent.toLowerCase();
+    if (parseInt(myNav.split("msie")[1]) <= 10) {
+        return false;
+    }
+
     function isCanvasSupported() {
         var elem = document.createElement('canvas');
         return !!(elem.getContext && elem.getContext('2d'));

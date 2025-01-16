@@ -395,16 +395,12 @@ export function addAerialImagery(map) {
                 map.setPaintProperty("amenity-points-landuse", "text-halo-width", 1);
                 map.setPaintProperty("text-poly-low-zoom", "text-halo-color", "#fff");
                 map.setPaintProperty("text-poly-low-zoom", "text-halo-width", 0.5);
-                map.setPaintProperty("amenity-points-low-icon", "text-halo-width", 0.5);
-                map.setPaintProperty("amenity-points-icon", "text-halo-width", 0.5);
-                map.setPaintProperty("amenity-points-mid-icon", "text-halo-width", 0.5);
-                map.setPaintProperty(
-                    "amenity-points-high-icon",
-                    "text-halo-width",
-                    0.5
-                );
+                map.setPaintProperty("amenity-points-low", "icon-halo-width", 0.5);
+                map.setPaintProperty("amenity-points", "icon-halo-width", 0.5);
+                map.setPaintProperty("amenity-points-mid", "icon-halo-width", 0.5);
+                map.setPaintProperty("amenity-points-high", "icon-halo-width", 0.5);
                 map.setPaintProperty("amenity-points-low", "text-halo-width", 0.6);
-                map.setPaintProperty("amenity-points-text", "text-halo-width", 0.6);
+                map.setPaintProperty("amenity-points", "text-halo-width", 0.6);
                 map.setPaintProperty("amenity-points-mid", "text-halo-width", 0.6);
                 map.setPaintProperty("amenity-points-high", "text-halo-width", 0.6);
                 map.setPaintProperty("necountries-4", "line-color", "#222");

@@ -12,7 +12,7 @@ export function waitForOl(options) {
     } else if (typeof window.olms === "undefined" && options["mapType"] != "raster") {
         if (!options["loadingOLMS"]) {
             options["loadingOLMS"] = true;
-            loadScript(process.env.API_URL + ".slpy.com/lib/olms/latest/olms.js");
+            loadScript(process.env.API_URL + ".slpy.com/lib/olms/latest/olms.legacy.min.js");
             setTimeout(waitForOl, 250, options);
         } else {
             setTimeout(waitForOl, 250, options);
@@ -20,7 +20,7 @@ export function waitForOl(options) {
     } else {
         var olcss = document.createElement("link");
         var facss = document.createElement("link");
-        olcss.href = process.env.API_URL + ".slpy.com/lib/ol/latest/ol.css";
+        olcss.href = process.env.API_URL + ".slpy.com/lib/ol/latest/ol.legacy.css";
         facss.href = process.env.API_URL + ".slpy.com/lib/font-awesome/latest/css/all.min.css";
         olcss.rel = "stylesheet";
         facss.rel = "stylesheet";
