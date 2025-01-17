@@ -80,6 +80,7 @@ export default [
             file: 'dist/index.js',
             format: 'es',
             name: 'slpy',
+            sourcemap: true,
             globals
         }],
         external,
@@ -94,6 +95,7 @@ export default [
             file: 'dist/index.openlayers.js',
             format: 'es',
             name: 'slpy',
+            sourcemap: true,
             globals
         }],
         external,
@@ -108,6 +110,7 @@ export default [
             file: 'dist/slpy.js',
             format: 'umd',
             name: 'slpy',
+            sourcemap: true,
             globals,
         },
         external,
@@ -122,6 +125,7 @@ export default [
             file: 'dist/slpy.polyfilled.js',
             format: 'umd',
             name: 'slpy',
+            sourcemap: true,
             globals,
         },
         context: 'window',
@@ -138,6 +142,7 @@ export default [
         output: {
             file: 'dist/slpy.polyfills.js',
             format: 'umd',
+            sourcemap: true,
         },
         context: 'window',
         moduleContext: 'window',

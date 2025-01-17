@@ -47,6 +47,8 @@ export function maplibreMap(options) {
                         );
                         return "";
                     }
+                } else if (settings.rasterFallback) {
+                    options["mapType"] = "raster";
                 }
             }
             loadScript(process.env.API_URL + ".slpy.com/lib/ol/latest/ol.legacy.min.js");

@@ -1,7 +1,7 @@
 //Copyright 2023, Slpy, all rights reserved.
 //Check out https://github.com/Spy-API/Slpy-JS and https://www.slpy.com/legal for licensing and terms
 
-import { isWebGL2Supported } from "./utils.js";
+import { isWebGL1Supported, isWebGL2Supported } from "./utils.js";
 import { mapState, settings, mapLibraries } from "./globals.js";
 
 export function processOptions(options) {
@@ -29,7 +29,7 @@ export function processOptions(options) {
     } else {
         options["mapLanguage"] = "en";
     }
-    if (typeof options["mapFilter"] !== "undefined" && options["mapFilter"].length > 0 ) {
+    if (typeof options["mapFilter"] !== "undefined" && options["mapFilter"].length > 0) {
         settings.mapFilter = options["mapFilter"];
     }
     settings.apiKey = options["apiKey"].toLowerCase();
@@ -37,9 +37,18 @@ export function processOptions(options) {
 }
 
 export function maplibreCheck(targetDivId, openlayersFallback) {
-
     if (typeof mapLibraries.maplibregl === "undefined" || !isWebGL2Supported()) {
-
+        if (typeof mapLibraries.maplibregl !== "undefined" && isWebGL1Supported()) {
+            try {
+                if (mapLibraries.maplibregl.getVersion().split('.').map(Number) >= 5) {
+                    return true;
+                } else {
+                    console.log("MapLibre requries v5+ for WebGL 1 support.");
+                }
+            } catch (e) {
+                console.log("Browser has WebGL, but lacks full support for MapLibre.");
+            }
+        }
         if (openlayersFallback == false) {
             var mapDivEl = targetDivId
             if (typeof mapDivEl === "string") {
