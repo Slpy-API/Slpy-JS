@@ -109,7 +109,7 @@ export function addMarkers(markers, map, style) {
             var iconStyle =
                 '<svg xmlns="http://www.w3.org/2000/svg" id="marker-' +
                 parseInt([i]).toString() +
-                '" style="fill: #a11c25;width:27px; height:36px;stroke:#fff;stroke-width:15px;filter: drop-shadow(1px 2px 1px rgba(0,0,0,0.4));" viewBox="0 0 384 512">';
+                '" style="fill: #f84e69;width:27px; height:36px;stroke:#fff;stroke-width:15px;filter: drop-shadow(1px 2px 1px rgba(0,0,0,0.4));" viewBox="0 0 384 512">';
             hasPopupInfo = false;
             if (typeof markers[i].data[2] !== "undefined") {
                 if (markers[i].data[2] !== "") {
@@ -229,7 +229,7 @@ export function dehighlightMarker(markerIndex) {
     } else {
         var hmarker = document.getElementById("marker-" + markerIndex);
         if (hmarker) {
-            hmarker.style.fill = "#a11c25";
+            hmarker.style.fill = "#f84e69";
             hmarker.parentElement.style.zIndex = 0;
         }
     }
@@ -288,7 +288,7 @@ export function createMarker(lonLat, name, id, style) {
         var markerStyle = new mapLibraries.ol.style.Style({
             image: new mapLibraries.ol.style.Icon({
                 opacity: 1,
-                color: "#a11c25",
+                color: "#f84e69",
                 anchor: [0.5, 36],
                 anchorXUnits: "fraction",
                 anchorYUnits: "pixels",
@@ -302,7 +302,7 @@ export function createMarker(lonLat, name, id, style) {
         var markerStyle = new mapLibraries.ol.style.Style({
             image: new mapLibraries.ol.style.Icon({
                 opacity: 1,
-                color: "#a11c25",
+                color: "#f84e69",
                 anchor: [0.5, 36],
                 anchorXUnits: "fraction",
                 anchorYUnits: "pixels",
